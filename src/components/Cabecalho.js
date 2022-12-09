@@ -22,5 +22,9 @@ const Titulo = styled.div`
     top: 0px;
     p {
         color: #E8833A;
+        font-style: normal;
+        font-weight: 400;
+        font-family: 'Roboto';
+        font-size: 34px;
     }
 `
