@@ -58,7 +58,8 @@ export default function App() {
               dia={dia} hora={hora}
               numeroAssento={numeroAssento}
               setNumeroAssento={setNumeroAssento}
-              nome={nome} cpf={cpf}
+              nome={nome} setNome={setNome}
+              cpf={cpf} setCpf={setCpf}
             />} />
         </Routes>
       </ContainerTela>

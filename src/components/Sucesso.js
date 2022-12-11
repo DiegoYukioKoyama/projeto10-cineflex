@@ -3,10 +3,12 @@ import styled from "styled-components";
 
 export default function Sucesso(props) {
 
-    const { infoFilme, dia, hora, numeroAssento, setNumeroAssento, nome, cpf } = props
+    const { infoFilme, dia, hora, numeroAssento, setNumeroAssento, nome, setNome, cpf, setCpf } = props
 
     function clickBtnHome() {
         setNumeroAssento([])
+        setNome("")
+        setCpf("")
     }
 
     return (
