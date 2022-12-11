@@ -19,7 +19,7 @@ export default function ListaFilmes() {
         <>
             <SubTituloListaFilmes>Selecione o filme</SubTituloListaFilmes>
             <Lista>
-                {filmes.map(f => <li key={f.id}><Link to={`/sessoes/${f.id}`}><img src={f.posterURL} alt={f.title} /></Link></li>)}
+                {filmes.map(f => <div data-test="movie" key={f.id}><Link to={`/sessoes/${f.id}`}><img src={f.posterURL} alt={f.title} /></Link></div>)}
             </Lista>
         </>
 
@@ -43,7 +43,7 @@ const Lista = styled.div`
     display: flex;
     justify-content: space-around;
     flex-wrap: wrap;
-    li{
+    div{
         width: 145px;
         height: 209px;
         background-color: #FFFFFF;

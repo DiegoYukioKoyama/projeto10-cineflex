@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom"
 
 export default function Assentos(props) {
 
-    const { clicarAssento, assentoSelecionado, setAssentoSelecionado, nome, setNome, cpf, setCpf, infoFilme, dia, hora } = props
+    const { clicarAssento, assentoSelecionado, setAssentoSelecionado, nome, setNome, cpf, setCpf, infoFilme, dia, hora, numeroAssento } = props
     const { id } = useParams()
     const [assentos, setAssentos] = useState([])
     const selecionado = "#1AAE9E"
@@ -33,9 +33,10 @@ export default function Assentos(props) {
         <>
             <ContainerPagina>
                 <SubtituloAssentos>Selecione o(s) assento(s)</SubtituloAssentos>
-                <ContainerAssentos>{assentos.map(a => <ContainerBtn
+                <ContainerAssentos>{assentos.map(a => <ContainerBtn 
+                    data-test="seat"
                     active={assentoSelecionado.includes(a.id)}
-                    onClick={() => a.isAvailable ? clicarAssento(a.id) : alert("Esse assento não está disponível")}
+                    onClick={() => a.isAvailable ? clicarAssento(a.id, a.name) : alert("Esse assento não está disponível")}
                     corAssento={a.isAvailable}
                     key={a.name}
                 >{a.name}</ContainerBtn>)}
@@ -53,6 +54,7 @@ export default function Assentos(props) {
                 <ContainerInput onSubmit={reservarAssentos}>
                     <p>Nome do comprador:</p>
                     <input
+                        data-test="client-name"
                         value={nome}
                         onChange={e => setNome(e.target.value)}
                         type="text" placeholder="Digite seu nome"
@@ -60,21 +62,22 @@ export default function Assentos(props) {
                     />
                     <p>CPF do comprador:</p>
                     <input
+                        data-test="client-cpf"
                         value={cpf}
                         onChange={e => setCpf(e.target.value)}
                         type="number"
                         placeholder="Digite seu CPF"
                         required />
                     <BtnSubmit>
-                           <button type="submit">Reservar assento(s)</button>
+                           <button data-test="book-seat-btn" type="submit">Reservar assento(s)</button>
                     </BtnSubmit>
                 </ContainerInput>
 
-                <RodapeAssentos>
+                <RodapeAssentos data-test="footer">
                     <span><img src={infoFilme.posterURL} alt="poster" /></span>
                     <div>
                         <h1>{infoFilme.title}</h1>
-                        <h2>{`${dia} - ${hora}`}</h2>
+                        <h2>{`${dia.weekday} - ${hora}`}</h2>
                     </div>
                 </RodapeAssentos>
             </ContainerPagina>

@@ -10,7 +10,7 @@ export default function Cabecalho() {
 
 }
 
-const Titulo = styled.div`
+const Titulo = styled.header`
     width: 100%;
     height: 8vh;
     display: flex;

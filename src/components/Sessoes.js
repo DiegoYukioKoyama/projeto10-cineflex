@@ -5,7 +5,7 @@ import styled from "styled-components"
 
 export default function Sessoes(props) {
 
-    const { setInfoFilme, clickSessao } = props
+    const { infoFilme, setInfoFilme, clickSessao } = props
     const { id } = useParams()
     const [sessoes, setSessoes] = useState([])
     const [filmeS, setFilmeS] = useState([])
@@ -29,12 +29,12 @@ export default function Sessoes(props) {
             <SubTituloSessoes>Selecione o horário</SubTituloSessoes>
             <ListaSessoes>
                 <div>
-                    {sessoes.map(s => <li key={s.id}>
+                    {sessoes.map(s => <li data-test="movie-day" key={s.id}>
                     <p>{s.weekday} - {s.date}</p>
-                    <ContainerAssentos>{s.showtimes.map(show => <Link key={show.id} to={`/assentos/${show.id}`}><span onClick={clickSessao(s.weekday, show.name)}>{show.name}</span></Link>)}</ContainerAssentos>
+                    <ContainerAssentos>{s.showtimes.map(show => <Link data-test="showtime" key={show.id} to={`/assentos/${show.id}`}><span onClick={clickSessao(s, show.name)}>{show.name}</span></Link>)}</ContainerAssentos>
                     </li>)}
                 </div>
-                <RodapeSessoes>
+                <RodapeSessoes data-test="footer">
                     <span><img src={filmeS.posterURL} alt="poster"/></span>
                     <h1>{filmeS.title}</h1>
                 </RodapeSessoes>
