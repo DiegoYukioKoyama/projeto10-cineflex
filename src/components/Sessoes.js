@@ -3,8 +3,9 @@ import { useEffect, useState } from "react"
 import { Link, useParams } from "react-router-dom"
 import styled from "styled-components"
 
-export default function Sessoes() {
+export default function Sessoes(props) {
 
+    const { setInfoFilme, clickSessao } = props
     const { id } = useParams()
     const [sessoes, setSessoes] = useState([])
     const [filmeS, setFilmeS] = useState([])
@@ -16,10 +17,13 @@ export default function Sessoes() {
 
     useEffect(() => {
         const promisse = axios.get(`https://mock-api.driven.com.br/api/v8/cineflex/movies/${id}/showtimes`)
-        promisse.then((resposta) => setFilmeS(resposta.data))
+        promisse.then((resposta) => {
+            setFilmeS(resposta.data)
+            setInfoFilme(resposta.data)
+        })
         promisse.catch((err) => alert(err.response.data))
     },[])
-        
+
     return (
         <>
             <SubTituloSessoes>Selecione o horário</SubTituloSessoes>
@@ -27,11 +31,11 @@ export default function Sessoes() {
                 <div>
                     {sessoes.map(s => <li key={s.id}>
                     <p>{s.weekday} - {s.date}</p>
-                    <Link to={`/assentos/${s.id}`}>{s.showtimes.map(show => <button key={show.id}>{show.name}</button>)}</Link>
+                    <ContainerAssentos>{s.showtimes.map(show => <Link key={show.id} to={`/assentos/${show.id}`}><span onClick={clickSessao(s.weekday, show.name)}>{show.name}</span></Link>)}</ContainerAssentos>
                     </li>)}
                 </div>
                 <RodapeSessoes>
-                    <span><img src={filmeS.posterURL} /></span>
+                    <span><img src={filmeS.posterURL} alt="poster"/></span>
                     <h1>{filmeS.title}</h1>
                 </RodapeSessoes>
             </ListaSessoes>
@@ -69,7 +73,14 @@ const ListaSessoes = styled.ul`
         align-items: center;
         margin-bottom: 22px;
     }
-    button{
+`
+
+const ContainerAssentos =styled.div`
+    display: flex;
+    span{
+        display: flex;
+        justify-content: center;
+        align-items: center;
         width: 83px;
         height: 43px;
         font-family: 'Roboto';
@@ -80,7 +91,8 @@ const ListaSessoes = styled.ul`
         background-color: #E8833A;
         border-radius: 3px;
         margin-bottom: 22px;
-        margin-right: 8px;  
+        margin-right: 8px;
+        cursor: pointer;
     }
 `
 

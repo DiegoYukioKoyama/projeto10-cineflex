@@ -39,7 +39,7 @@ const SubTituloListaFilmes = styled.h1`
     color: #293845;
 `
 
-const Lista = styled.ul`
+const Lista = styled.div`
     display: flex;
     justify-content: space-around;
     flex-wrap: wrap;
@@ -49,6 +49,7 @@ const Lista = styled.ul`
         background-color: #FFFFFF;
         box-shadow: 0px 2px 4px 2px rgba(0, 0, 0, 0.1);
         border-radius: 3px;
+        cursor: pointer;
     }
 
     img{
